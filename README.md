@@ -1,3 +1,5 @@
+THIS REPOSITORY IS NOT READY FOR PRODUCTION USE YET, IT IS EXPERIMENTAL.
+
  # Holesail-share
 
 [Join our Discord Support Server](https://discord.gg/TQVacE7Vnj)
