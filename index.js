@@ -22,7 +22,7 @@ const multer = require('multer');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3344
+const PORT =parseInt(argv.live, 10) || 3341;
 
 // Array to store uploaded files
 let uploadedFiles = [];
@@ -238,8 +238,10 @@ app.listen(PORT, () => {
         connector = null
     }
 
-    localServer.serve(argv.live, host, () => {
-        console.log(`Server started, Now listening on ${host}:` + argv.live);
+
+
+    localServer.serve({port:PORT, host:host}, () => {
+        console.log(`Server started, Now listening on ${host}:` + `${PORT}`);
         console.log(`Your connector is: ${argv.connector}`);
         console.log('Server public key:', localServer.getPublicKey());
     }, connector);
@@ -261,10 +263,10 @@ app.listen(PORT, () => {
         connector = argv.connect
     }
 
-    if (!argv.port) {
+    if (!PORT) {
         port = 8989
     } else {
-        port = argv.port
+        port = PORT
     }
     //--host
     if (argv.host) {
@@ -275,7 +277,7 @@ app.listen(PORT, () => {
 
     const holesailClient = require('holesail-client')
     const pubClient = new holesailClient(connector)
-    pubClient.connect(port, host, () => {
+    pubClient.connect({port:port, host:host}, () => {
         console.log(`Client setup, access on ${host}:${port}`);
         console.log(`Your connector is: ${argv.connector}`);
         console.log('Connected to public key:', connector);
